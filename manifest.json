@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "id": "cole-robertson.lightbar",
+  "name": "Lightbar",
+  "version": "0.1.0",
+  "author": "Cole Robertson",
+  "license": "MIT",
+  "description": "A light strip in the screen-edge gap that pulses with the beat and takes its colors from the cover art.",
+  "kinds": [
+    "service"
+  ],
+  "entryPoints": {
+    "service": "Service.qml"
+  }
+}
