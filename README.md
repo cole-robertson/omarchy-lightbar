@@ -4,10 +4,14 @@ A light strip for [Omarchy](https://omarchy.org/) that lives in the gap between
 your tiled windows and the edge of the screen. It pulses outward from the centre
 on every beat of whatever is playing and takes its colours from the cover art.
 
+![Lightbar pulsing along the bottom edge](docs/lightbar.gif)
+
 - Follows the kick and bass, not just overall loudness.
 - Colours come from the current track's cover art, falling back to your theme accent.
 - Sits under your windows: tiled windows leave it visible, floating and fullscreen windows cover it.
 - Costs nothing when nothing is playing, and pauses while a fullscreen window hides it.
+
+![Lightbar under a tiled Spotify window](docs/screenshot.png)
 
 ## Install
 
@@ -16,6 +20,13 @@ omarchy plugin add https://github.com/cole-robertson/omarchy-lightbar.git --enab
 ```
 
 That is all. There is nothing to build and nothing extra to install.
+
+To update or remove it later:
+
+```bash
+omarchy plugin update cole-robertson.lightbar
+omarchy plugin remove cole-robertson.lightbar
+```
 
 ## Settings
 
