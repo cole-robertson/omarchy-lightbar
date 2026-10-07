@@ -164,7 +164,9 @@ Item {
   readonly property var args: ["--edges", edges.join(","), "--gap", String(gap),
     "--thickness", String(thickness), "--sensitivity", String(sensitivity), "--glow", String(glow), "--fps", String(fps)]
   property double startedAt: 0
-  property bool failed: false
+  property bool stopping: false
+  property int failures: 0
+  readonly property bool failed: failures >= 3
 
   function sendColors() {
     if (renderer.running) renderer.write("colors " + colorA + " " + colorB + " " + colorC + "\n")
@@ -174,12 +176,19 @@ Item {
   onColorCChanged: sendColors()
 
   // Asking the renderer to quit lets it fade out; onExited brings it back if it is still wanted.
+  function stop() {
+    stopping = true
+    renderer.write("quit\n")
+  }
   function sync() {
     if (active && !renderer.running && !failed) renderer.running = true
-    else if (!active && renderer.running) renderer.write("quit\n")
+    else if (!active && renderer.running) stop()
   }
-  onActiveChanged: sync()
-  onArgsChanged: if (renderer.running) renderer.write("quit\n")
+  onActiveChanged: {
+    if (active) failures = 0
+    sync()
+  }
+  onArgsChanged: if (renderer.running) stop()
 
   Process {
     id: renderer
@@ -190,12 +199,18 @@ Item {
       root.sendColors()
     }
     onExited: {
-      // Don't respawn in a loop if the renderer cannot start on this system.
-      if (root.active && Date.now() - root.startedAt < 2000) {
-        root.failed = true
-        console.warn("lightbar: renderer exited straight away; run lightbar.py by hand to see why")
+      // An exit we did not ask for, straight after starting, is a failure; give up
+      // after three in a row so a broken system does not respawn forever.
+      if (!root.stopping && Date.now() - root.startedAt < 2000) {
+        root.failures += 1
+        if (root.failed) console.warn("lightbar: renderer keeps exiting; run lightbar.py by hand to see why")
+      } else {
+        root.failures = 0
       }
-      Qt.callLater(root.sync)
+      root.stopping = false
+      retry.restart()
     }
   }
+
+  Timer { id: retry; interval: 500; onTriggered: root.sync() }
 }
