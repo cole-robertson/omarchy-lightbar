@@ -11,7 +11,7 @@ on every beat of whatever is playing and takes its colours from the cover art.
 - Sits under your windows: tiled windows leave it visible, floating and fullscreen windows cover it.
 - Costs nothing when nothing is playing, and pauses while a fullscreen window hides it.
 
-![Lightbar under a tiled Spotify window](docs/screenshot.png)
+![Lightbar pulsing under a tiled Spotify window](docs/tiled.gif)
 
 ## Install
 
