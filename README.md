@@ -2,12 +2,12 @@
 
 A light strip for [Omarchy](https://omarchy.org/) that lives in the gap between
 your tiled windows and the edge of the screen. It pulses outward from the centre
-on every beat of whatever is playing and takes its colours from the cover art.
+on every beat of whatever is playing and takes its colors from the cover art.
 
 ![Lightbar pulsing along the bottom edge](docs/lightbar.gif)
 
 - Follows the kick and bass, not just overall loudness.
-- Colours come from the current track's cover art, falling back to your theme accent.
+- Colors come from the current track's cover art, falling back to your theme accent.
 - Sits under your windows: tiled windows leave it visible, floating and fullscreen windows cover it.
 - Costs nothing when nothing is playing, and pauses while a fullscreen window hides it.
 
@@ -51,7 +51,7 @@ Changes apply as soon as you save. `omarchy-shell lightbar status` prints the cu
 ## How it works
 
 `Service.qml` runs inside the Omarchy shell and only makes decisions: it watches
-MPRIS for a playing track, picks colours from the cover art, and starts or stops
+MPRIS for a playing track, picks colors from the cover art, and starts or stops
 the renderer.
 
 `lightbar.py` is the renderer, a single dependency-free Python script that speaks
